@@ -1,18 +1,19 @@
 import { DraggableProvided } from "@hello-pangea/dnd";
 import { Check, X } from "lucide-react";
-import { useTodoContext } from "../context/TodoContext";
+import { useTodo } from "../context/TodoContext";
 
 interface Todo {
   id: string;
-  text: string;
+  task: string;
   completed: boolean;
+  order: number;
 }
 
 export default function TodoItem({
   todo,
   provided,
 }: Readonly<{ todo: Todo; provided: DraggableProvided }>) {
-  const { toggleTodo, deleteTodo } = useTodoContext();
+  const { toggleTodo, deleteTodo } = useTodo();
   return (
     <li
       className="p-4 flex items-center"
@@ -43,7 +44,7 @@ export default function TodoItem({
               : "text-blue-900 dark:text-gray-300"
           }`}
         >
-          {todo.text}
+          {todo.task}
         </p>
         <button
           className="invisible  group-hover/item:visible"

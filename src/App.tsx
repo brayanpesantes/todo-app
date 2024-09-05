@@ -1,17 +1,22 @@
+import { Suspense } from "react";
+import Footer from "./components/Footer";
 import Header from "./components/Header";
-import TodoInput from "./components/TodoInput";
-import TodoList from "./components/TodoList";
+import TodoContainer from "./components/TodoContainer";
+
 export default function App() {
   return (
-    <div className="text-lg bg-gray-200 dark:bg-gray-900 min-h-screen">
+    <div className="text-lg bg-gray-200 dark:bg-gray-900 min-h-screen flex flex-col">
       <Header />
-      <div className="w-full px-6 md:px-0 md:max-w-[500px] mx-auto -mt-48 ">
-        <TodoInput />
-        <TodoList />
-      </div>
-      <footer className="text-center text-gray-500 text-sm py-10">
-        Drag and drop to reorder list
-      </footer>
+      <main className="flex-grow">
+        <Suspense fallback={<LoadingSpinner />}>
+          <TodoContainer />
+        </Suspense>
+      </main>
+      <Footer />
     </div>
   );
+}
+
+function LoadingSpinner() {
+  return <div className="text-center py-4">Loading...</div>;
 }

@@ -1,111 +1,172 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
 
-interface Todo {
+export interface Todo {
   id: string;
-  text: string;
+  task: string;
   completed: boolean;
+  order: number;
 }
 
-interface TodoContextProps {
+interface TodoContextType {
   todos: Todo[];
-  addTodo: (text: string) => void;
-  toggleTodo: (id: string) => void;
-  deleteTodo: (id: string) => void;
-  clearCompleted: () => void;
-  filterTodos: (filter: "all" | "active" | "completed") => Todo[];
+  addTodo: (task: string) => Promise<void>;
+  toggleTodo: (id: string) => Promise<void>;
+  deleteTodo: (id: string) => Promise<void>;
   reorderTodos: (startIndex: number, endIndex: number) => void;
+  clearCompleted: () => Promise<void>;
+  filterTodos: (filter: "all" | "active" | "completed") => Todo[];
+  isEditing: boolean;
+  setIsEditing: (isEditing: boolean) => void;
 }
 
-const initialTodos: Todo[] = [
-  { id: "1", text: "Learn TypeScript", completed: false },
-  { id: "2", text: "Build a Todo App", completed: false },
-  { id: "3", text: "Read Next.js documentation", completed: false },
-  { id: "4", text: "Implement Drag and Drop", completed: false },
-  { id: "5", text: "Deploy the App", completed: false },
-];
+const TodoContext = createContext<TodoContextType | undefined>(undefined);
 
-const TodoContext = createContext<TodoContextProps | undefined>(undefined);
-
-export function TodoProvider({ children }: { children: ReactNode }) {
-  const [todos, setTodos] = useState<Todo[]>(() => {
-    const storedTodos = localStorage.getItem("todos");
-    return storedTodos ? JSON.parse(storedTodos) : initialTodos;
-  });
+export function TodoProvider({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
+    fetchTodos();
+  }, []);
 
-  function addTodo(text: string) {
-    const newTodo: Todo = {
-      id: `todo-${Date.now()}`,
-      text,
-      completed: false,
-    };
-    setTodos((prevTodos) => [...prevTodos, newTodo]);
+  async function fetchTodos() {
+    const { data, error } = await supabase
+      .from("todos")
+      .select("*")
+      .order("order", { ascending: true });
+
+    if (error) {
+      console.error("Error fetching todos:", error);
+    } else {
+      setTodos(data || []);
+    }
   }
 
-  function toggleTodo(id: string) {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
+  async function addTodo(task: string) {
+    const { data, error } = await supabase
+      .from("todos")
+      .insert({ task, completed: false, order: todos.length + 1 })
+      .select();
+
+    if (error) {
+      console.error("Error adding todo:", error);
+    } else if (data) {
+      setTodos([...todos, data[0]]);
+    }
   }
 
-  function deleteTodo(id: string) {
-    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+  async function toggleTodo(id: string) {
+    const todoToUpdate = todos.find((todo) => todo.id === id);
+    if (!todoToUpdate) return;
+
+    const { error } = await supabase
+      .from("todos")
+      .update({ completed: !todoToUpdate.completed })
+      .eq("id", id);
+
+    if (error) {
+      console.error("Error toggling todo:", error);
+    } else {
+      setTodos(
+        todos
+          .map((todo) =>
+            todo.id === id ? { ...todo, completed: !todo.completed } : todo
+          )
+          .sort((a, b) => a.order - b.order)
+      );
+    }
   }
 
-  function clearCompleted() {
-    setTodos((prevTodos) => prevTodos.filter((todo) => !todo.completed));
+  async function deleteTodo(id: string) {
+    const { error } = await supabase.from("todos").delete().eq("id", id);
+
+    if (error) {
+      console.error("Error deleting todo:", error);
+    } else {
+      setTodos(
+        todos.filter((todo) => todo.id !== id).sort((a, b) => a.order - b.order)
+      );
+    }
+  }
+
+  async function clearCompleted() {
+    const { error } = await supabase
+      .from("todos")
+      .delete()
+      .eq("completed", true);
+
+    if (error) {
+      console.error("Error clearing completed todos:", error);
+    } else {
+      setTodos(
+        todos
+          .filter((todo) => !todo.completed)
+          .sort((a, b) => a.order - b.order)
+      );
+    }
   }
 
   function filterTodos(filter: "all" | "active" | "completed") {
-    return todos.filter((todo) => {
-      if (filter === "all") return true;
-      if (filter === "active") return !todo.completed;
-      if (filter === "completed") return todo.completed;
-      return true;
-    });
+    return todos
+      .filter((todo) => {
+        if (filter === "active") return !todo.completed;
+        if (filter === "completed") return todo.completed;
+        return true;
+      })
+      .sort((a, b) => a.order - b.order);
   }
 
-  function reorderTodos(startIndex: number, endIndex: number) {
-    setTodos((prevTodos) => {
-      const result = Array.from(prevTodos);
-      const [removed] = result.splice(startIndex, 1);
-      result.splice(endIndex, 0, removed);
-      return result;
-    });
+  async function reorderTodos(startIndex: number, endIndex: number) {
+    const reorderedTodos = Array.from(todos);
+    const [removed] = reorderedTodos.splice(startIndex, 1);
+    reorderedTodos.splice(endIndex, 0, removed);
+
+    // Actualizar el orden localmente
+    const updatedTodos = reorderedTodos.map((todo, index) => ({
+      ...todo,
+      order: index + 1,
+    }));
+
+    setTodos(updatedTodos);
+
+    // Actualizar el orden en Supabase
+    const { error } = await supabase
+      .from("todos")
+      .upsert(updatedTodos.map(({ id, order }) => ({ id, order })));
+
+    if (error) {
+      console.error("Error updating todo order:", error);
+      // Revertir cambios locales si hay un error
+      await fetchTodos();
+    }
   }
 
-  const value = useMemo(
-    () => ({
-      todos,
-      addTodo,
-      toggleTodo,
-      deleteTodo,
-      clearCompleted,
-      filterTodos,
-      reorderTodos,
-    }),
-    [todos]
+  return (
+    <TodoContext.Provider
+      value={{
+        todos,
+        addTodo,
+        toggleTodo,
+        deleteTodo,
+        reorderTodos,
+        clearCompleted,
+        filterTodos,
+        isEditing,
+        setIsEditing,
+      }}
+    >
+      {children}
+    </TodoContext.Provider>
   );
-
-  return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>;
 }
 
-export function useTodoContext() {
+export function useTodo() {
   const context = useContext(TodoContext);
-  if (!context) {
-    throw new Error("useTodoContext must be used within a TodoProvider");
+  if (context === undefined) {
+    throw new Error("useTodo must be used within a TodoProvider");
   }
   return context;
 }

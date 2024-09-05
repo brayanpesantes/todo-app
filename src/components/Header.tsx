@@ -1,13 +1,13 @@
-import { DarkMode } from "./DarkMode";
+import { ThemeToggle } from "./ThemeToggle";
 
 export default function Header() {
   return (
-    <header className="h-[300px] bg-[url('/images/bg-mobile-light.avif')] dark:bg-[url('/images/bg-mobile-dark.avif')] bg-no-repeat bg-cover md:bg-[url('/images/bg-desktop-light.avif')] dark:md:bg-[url('/images/bg-desktop-dark.avif')]">
-      <div className="w-full px-6 md:px-0 md:max-w-[500px] mx-auto pt-20 flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-gray-100 uppercase tracking-[.25em]">
+    <header className="bg-todo-mobile-light dark:bg-todo-mobile-dark md:bg-todo-desktop-light md:dark:bg-todo-desktop-dark bg-no-repeat bg-cover h-[200px] md:h-[300px] p-6 md:p-10">
+      <div className="flex justify-between items-center max-w-[500px] mx-auto">
+        <h1 className="text-3xl font-bold tracking-[0.3em] text-gray-100 uppercase">
           Todo
         </h1>
-        <DarkMode />
+        <ThemeToggle />
       </div>
     </header>
   );

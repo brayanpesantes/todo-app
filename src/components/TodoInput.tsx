@@ -1,9 +1,9 @@
 import { Circle } from "lucide-react";
 import { useState } from "react";
-import { useTodoContext } from "../context/TodoContext";
+import { useTodo } from "../context/TodoContext";
 
 export default function AddInput() {
-  const { addTodo } = useTodoContext();
+  const { addTodo } = useTodo();
   const [text, setText] = useState("");
 
   return (
