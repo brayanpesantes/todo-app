@@ -1,42 +1,77 @@
-# vite-biome-tailwind-template
+# Frontend Mentor - Todo app solution
 
-![Default webpage screenshot](https://github.com/not-first/vite-biome-tailwind-template/assets/111339712/d0bdd8b6-6b1c-483f-acd4-dc80e1ed8bf6)
----
+This is a solution to the [Todo app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
-Simple expansion of Vite's React template to create TypeScript projects integrated with:
+## Table of contents
 
-- [Biome](https://biomejs.dev/): A fast formatter and linter (replacing both ESLint and Prettier) written in rust.
-- [TailwindCSS](https://tailwindcss.com/): CSS utility that provides classes to apply inline styles to components
+- [Frontend Mentor - Todo app solution](#frontend-mentor---todo-app-solution)
+  - [Table of contents](#table-of-contents)
+  - [Overview](#overview)
+    - [The challenge](#the-challenge)
+    - [Screenshot](#screenshot)
+    - [Links](#links)
+  - [My process](#my-process)
+    - [Built with](#built-with)
+    - [What I learned](#what-i-learned)
+    - [Continued development](#continued-development)
+  - [Author](#author)
 
-## Contents
+## Overview
 
-The unchanged vite-generated files: `.gitignore`, `index.html`, `tsconfig.app.js`, `tsconfig.node.json`, `tsconfig.json`, `vite-config` files.
+### The challenge
 
-A `package.json` (and `package-lock.json`) file with ESLint, Prettier and their dependencies removed. Biome and TailwindCSS are installed as devDependencies. Available scripts are:
+Users should be able to:
 
-- `dev`, `build`, `preview` as provided by Vite
-- `format`: formats the project using Biome's formatter
-- `lint`: lints the project using Biome's linter
+- View the optimal layout for the app depending on their device's screen size
+- See hover states for all interactive elements on the page
+- Add new todos to the list
+- Mark todos as complete
+- Delete todos from the list
+- Filter by all/active/complete todos
+- Clear all completed todos
+- Toggle light and dark mode
+- **Bonus**: Drag and drop to reorder items on the list
 
-Tailwind config files, including the default `tailwind.config.js` and `postcss.config.js`.
+### Screenshot
 
-Biome config file `biome.json`. In addition to default config, it has git integration enabled, and has the experimental useSortedClasses (sorting of tailwind classes) rule enabled.
+![](./screenshot.jpg)
 
-## Usage
+*Add a screenshot of your solution here.*
 
-1. Clone to your machine. Do this by:
-    - Copying using [degit](https://github.com/Rich-Harris/degit) to download the files in the repo without the git history. (RECOMMENDED)
-      - `npx degit not-first/vite-biome-tailwind-template project-name`
+### Links
 
-    - Cloning this repo to your machine. This will keep the git history of this repo.
-       - `git clone https://github.com/not-first/vite-biome-tailwind-template.git`
+- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
 
-    - Creating a repo using this template. Note that your repo will signify that it was built from this template.
-      - Click [here](https://github.com/not-first/vite-biome-tailwind-template/generate), or the 'Use this template' green button in the top right.
-  
-2. Install dependencies though `npm install`.
-3. Alter for your needs. Remember to:
-   - Update the `LICENSE` to the correct license and name
-   - Change the `name` and `author` properties in `package.json`
-   - Clean up the `README.md`
-4. You are good to go. Start the project with `npm run dev` and you will see an altered Vite starting screen with Vite, React, Biome and Tailwind styled using Tailwind classes.
+## My process
+
+### Built with
+
+- [React](https://reactjs.org/) - JS library
+- [TypeScript](https://www.typescriptlang.org/) - For type safety
+- [Tailwind CSS](https://tailwindcss.com/) - For styles
+- [Vite](https://vitejs.dev/) - Build tool
+- Mobile-first workflow
+- Responsive design
+- Dark mode support
+- Context API for state management
+
+### What I learned
+
+- Implementing a Todo app with React and TypeScript
+- Using Tailwind CSS for responsive and dark mode designs
+- Managing global state with React Context API
+- Implementing drag and drop functionality for list reordering
+
+### Continued development
+
+- Improve accessibility features
+- Implement data persistence (e.g., local storage or backend integration)
+- Add animations for a more polished user experience
+- Enhance drag and drop functionality
+
+## Author
+
+- Website - [Add your name here](https://www.your-site.com)
+- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
+- Twitter - [@yourusername](https://www.twitter.com/yourusername)
