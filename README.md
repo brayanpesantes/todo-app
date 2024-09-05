@@ -9,6 +9,8 @@ This is a solution to the [Todo app challenge on Frontend Mentor](https://www.fr
   - [Overview](#overview)
     - [The challenge](#the-challenge)
     - [Screenshot](#screenshot)
+  - [Mode light](#mode-light)
+  - [Mode dark](#mode-dark)
     - [Links](#links)
   - [My process](#my-process)
     - [Built with](#built-with)
@@ -30,18 +32,21 @@ Users should be able to:
 - Filter by all/active/complete todos
 - Clear all completed todos
 - Toggle light and dark mode
-- **Bonus**: Drag and drop to reorder items on the list
+- **Bonus**: Drag and drop to reorder items on the list ✅
+- **Bonus**: Build this project as a full-stack application ✅ 
 
 ### Screenshot
-
-![](./screenshot.jpg)
+## Mode light 
+![](./screenshot-ligth.avif)
+## Mode dark
+![](./screenshot-dark.avif)
 
 *Add a screenshot of your solution here.*
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [GitHub Repository](https://github.com/brayanpesantes/todo-app)
+- Live Site URL: [Live Demo](https://todo-list-2024-09.netlify.app/)
 
 ## My process
 
