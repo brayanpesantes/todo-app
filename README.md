@@ -17,6 +17,7 @@ This is a solution to the [Todo app challenge on Frontend Mentor](https://www.fr
     - [What I learned](#what-i-learned)
     - [Continued development](#continued-development)
   - [Author](#author)
+  - [How to Implement](#how-to-implement)
 
 ## Overview
 
@@ -56,6 +57,9 @@ Users should be able to:
 - [TypeScript](https://www.typescriptlang.org/) - For type safety
 - [Tailwind CSS](https://tailwindcss.com/) - For styles
 - [Vite](https://vitejs.dev/) - Build tool
+- [Netlify](https://www.netlify.com/) - Deployment
+- [GitHub](https://github.com/) - Repository
+- [Supabase](https://supabase.com/) - Backend as a Service
 - Mobile-first workflow
 - Responsive design
 - Dark mode support
@@ -67,6 +71,7 @@ Users should be able to:
 - Using Tailwind CSS for responsive and dark mode designs
 - Managing global state with React Context API
 - Implementing drag and drop functionality for list reordering
+- Integrating Supabase for backend services
 
 ### Continued development
 
@@ -80,3 +85,45 @@ Users should be able to:
 - Website - [Add your name here](https://www.your-site.com)
 - Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
 - Twitter - [@yourusername](https://www.twitter.com/yourusername)
+
+## How to Implement
+
+To implement this project, follow these steps:
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/brayanpesantes/todo-app.git
+   cd todo-app
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Build for production:**
+   ```bash
+   npm run build
+   ```
+
+5. **Preview the production build:**
+   ```bash
+   npm run preview
+   ```
+
+6. **Deploy the application:**
+   - You can deploy the application to platforms like Netlify, Vercel, or any static site hosting service.
+   - For Netlify, you can connect your GitHub repository and follow the deployment instructions on the Netlify dashboard.
+
+7. **Environment Variables:**
+   - If you have any environment variables, create a `.env` file in the root directory and add your variables there.
+
+8. **Additional Configuration:**
+   - Ensure you have the necessary configurations for Tailwind CSS, Supabase, and any other tools used in the project.
+
+By following these steps, you will be able to set up and run the Todo app locally and deploy it to a hosting service of your choice.
