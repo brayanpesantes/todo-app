@@ -26,7 +26,14 @@ export default {
       },
     },
 
-    extend: {},
+    extend: {
+      backgroundImage: {
+        "todo-mobile-light": "url('/images/bg-mobile-light.avif')",
+        "todo-mobile-dark": "url('/images/bg-mobile-dark.avif')",
+        "todo-desktop-light": "url('/images/bg-desktop-light.avif')",
+        "todo-desktop-dark": "url('/images/bg-desktop-dark.avif')",
+      },
+    },
   },
   plugins: [],
 };
