@@ -14,6 +14,7 @@
   "dependencies": {
     "@fontsource/josefin-sans": "^5.0.21",
     "@hello-pangea/dnd": "^16.6.0",
+    "@supabase/supabase-js": "^2.45.3",
     "lucide-react": "^0.438.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
